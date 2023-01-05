@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
-
+import Todo from "./Todo";
+import {List, Paper} from "@mui/material";
+interface obj{
+    id: string,
+    title: string,
+    done: boolean
+}
 function App() {
+
+    const  [items , setItem] : [obj[], Function] = useState([{id: "0", title: "Hello World 1", done: true}, {id: "1", title: "Hello World 2", done: true}]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Paper style={{margin: 16}}>
+            <List>
+                {items.map((item, key)=>{
+                    return (
+                        <Todo {...item} key={key}/>
+                    )
+                })}
+            </List>
+        </Paper>
     </div>
   );
 }
