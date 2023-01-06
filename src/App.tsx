@@ -1,28 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Todo from "./Todo";
-import {List, Paper} from "@mui/material";
-interface obj{
-    id: string,
-    title: string,
-    done: boolean
-}
-function App() {
+import {Container, List, Paper} from "@mui/material";
+import AddTodo from "./AddTodo";
+import TodoItems from "./TodoItems";
 
-    const  [items , setItem] : [obj[], Function] = useState([{id: "0", title: "Hello World 1", done: true}, {id: "1", title: "Hello World 2", done: true}]);
-  return (
+function App() {
+    const [items , setItem] = useState([{id: "0", title: "Hello World 1", done: true}, {id: "1", title: "Hello World 2", done: true}]);
+    useEffect(()=> {
+        console.log(items)
+    }, [items])
+    return (
     <div className="App">
-        <Paper style={{margin: 16}}>
-            <List>
-                {items.map((item, key)=>{
-                    return (
-                        <Todo {...item} key={key}/>
-                    )
-                })}
-            </List>
-        </Paper>
+        <Container>
+            <AddTodo items={items} setItem={setItem} />
+            <div className="TodoList">
+                { items.length > 0 && <TodoItems items={[...items]} />}
+            </div>
+        </Container>
     </div>
-  );
+    );
 }
 
 export default App;
